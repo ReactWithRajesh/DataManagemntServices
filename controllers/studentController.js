@@ -3,11 +3,11 @@ var router = express.Router();
 const mongoose = require('mongoose');
 const Student = mongoose.model('Student');
 
-router.get('/', (req, res) => {
-    res.render('student/addOrEdit', {
-        viewTitle: 'Insert Student'
-    })
-})
+// router.get('/', (req, res) => {
+//     res.render('student/addOrEdit', {
+//         viewTitle: 'Insert Student'
+//     })
+// })
 
 router.post('/', (req, res) => {
     console.log(`Id : ${req.body._id}`)
@@ -53,30 +53,30 @@ function updateRecord(req, res) {
     })
 }
 
-//all list
-router.get('/list', (req, res) => {
-    Student.find().select(' fullName email mobile city')
-        .then((docs) => {
-            res.send(docs)
-            //using view hbs
-            // res.render('student/list', { list: docs })
-        }
-        )
-        .catch((err) => {
-            // Handle errors here
+
+const getlists = (req, res) => {
+    const students = Student.find().select(' fullName email mobile city')
+        .then((students) => {
+            res.json({ students })
+        })
+        .catch(err => {
             res.status(400).send({ err: err.message })
             console.error("Error during data retrive: " + err);
-        });
-})
+        })
+}
+//all list
+router.get('/list', getlists)
 
 //get by id 
 router.get('/:_id', (req, res) => {
     Student.findById(req.params._id,)
         .then((doc) => {
-            res.render('student/addOrEdit', {
-                viewTitle: 'Update Student',
-                student: doc
-            })
+            res.json({ doc })
+            //using view hbs
+            // res.render('student/addOrEdit', {
+            //     viewTitle: 'Update Student',
+            //     student: doc
+            // })
         }).catch((err) => {
             console.log("Error during data retriving by id :" + err)
         })
@@ -84,16 +84,17 @@ router.get('/:_id', (req, res) => {
 
 
 router.get('/delete/:_id', (req, res) => {
-    Student.findByIdAndRemove(req.params._id,)
-        .then((docs) => {
-            Student.find()
-                .then((docs) => res.render('student/list', { list: docs }))
-                .catch((err) => {
-                    // Handle errors here
-                    console.error("Error during data retrive: " + err);
-                });
-        })
-        .catch((err) => console.log("Error during deletion :" + err))
+    if (req.params._id) {
+        Student.findByIdAndRemove(req.params._id,)
+            .then((doc) => {
+
+                res.json({ doc, msg: 'Record deleted successfully.' })
+                //using view hbs
+                // res.render('student/list', { list: docs }) 
+            })
+            .catch((err) => console.log("Error during deletion :" + err))
+    }
+    else res.status(401).json({ msg: `Id is required for deletion.` })
 })
 
 module.exports = router

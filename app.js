@@ -1,5 +1,5 @@
 require('./models/db')
-
+const jwt = require('jsonwebtoken')
 const env = require('dotenv')
 env.config()
 const port = process.env.PORT || 4041
@@ -13,6 +13,9 @@ const exphbs = require('express-handlebars');
 const studentController = require('./controllers/studentController')
 
 const app = express()
+
+//get token by login
+
 
 //midlewares 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -36,6 +39,8 @@ app.engine("hbs",
         layoutsDir: __dirname + '/views/layouts/'
     })
 );
+
+
 
 app.set('view engine', 'hbs')
 
