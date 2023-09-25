@@ -1,3 +1,3 @@
 # MongoDb
-Cunsuming mongoDb with nodejs
-language:JavaScript
+# Cunsuming mongoDb with nodejs
+# language:JavaScript
