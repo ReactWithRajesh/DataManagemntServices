@@ -4,6 +4,7 @@ const env = require('dotenv')
 env.config()
 const port = process.env.PORT || 4041
 const express = require('express');
+const morgan = require('morgan')
 const path = require('path');
 const handlebars = require('handlebars');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
@@ -11,15 +12,15 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 
 const studentController = require('./controllers/studentController')
+const loginController=require('./controllers/loginController')
 
 const app = express()
 
-//get token by login
-
-
 //midlewares 
+app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use('/login', loginController)
 app.use('/student', studentController)
 
 app.get('/', (req, res) => {

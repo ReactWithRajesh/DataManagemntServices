@@ -1,4 +1,7 @@
 const jwt = require('jsonwebtoken');
+const JWT_SECRET =
+    "goK!pusp6ThEdURUtRenOwUhAsRjSWUCLheBazl!uJLPlS8EbreWLdrupIwabRAsiBu";
+
 
 //token validation 
 const verifyToken = (req, res, next) => {
@@ -8,7 +11,7 @@ const verifyToken = (req, res, next) => {
         req.token = token
         next()
     } else {
-        res.status(403).send({ msg: 'Invalid Request.' })
+        res.status(401).send({ msg: 'Unauthorized Request.' })
     }
 
 }
@@ -16,7 +19,7 @@ const verifyToken = (req, res, next) => {
 const generateToken = (req, res) => {
     const user = req.body
     console.log(user)
-    jwt.sign({ user: user }, "secretkey", (err, token) => {
+    jwt.sign({ ...user }, JWT_SECRET, (err, token) => {
         if (err) return res.send({ err: err.message })
         res.json({ token })
     });
@@ -24,13 +27,17 @@ const generateToken = (req, res) => {
 
 
 
-const verifyUser = (req, res) => {
-    jwt.verify(req.token, 'secretkey', (err, authData) => {
+const verifyUser = (req, res, next) => {
+    jwt.verify(req.token, JWT_SECRET, (err, authData) => {
         if (err) res.status(401).send({ err: err.message })
-        else res.json({ msg: 'Post added', authData })
+        else {
+            console.log("Logged in As: ", { userName: authData.userName, email: authData.email })
+            next && next()
+        }
     });
+
 }
 
-module.exports()
+module.exports = { generateToken, verifyToken, verifyUser }
 
 

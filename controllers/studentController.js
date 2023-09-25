@@ -1,6 +1,7 @@
 const express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
+const { verifyUser, verifyToken } = require('../authentication');
 const Student = mongoose.model('Student');
 
 // router.get('/', (req, res) => {
@@ -9,7 +10,7 @@ const Student = mongoose.model('Student');
 //     })
 // })
 
-router.post('/', (req, res) => {
+router.post('/', verifyToken, verifyUser, (req, res) => {
     console.log(`Id : ${req.body._id}`)
     if (!req.body._id) {
         insertRecord(req, res)
@@ -65,10 +66,10 @@ const getlists = (req, res) => {
         })
 }
 //all list
-router.get('/list', getlists)
+router.get('/list', verifyToken, verifyUser, getlists)
 
 //get by id 
-router.get('/:_id', (req, res) => {
+router.get('/:_id', verifyToken, verifyUser, (req, res) => {
     Student.findById(req.params._id,)
         .then((doc) => {
             res.json({ doc })
@@ -83,7 +84,7 @@ router.get('/:_id', (req, res) => {
 })
 
 
-router.get('/delete/:_id', (req, res) => {
+router.get('/delete/:_id', verifyToken, verifyUser, (req, res) => {
     if (req.params._id) {
         Student.findByIdAndRemove(req.params._id,)
             .then((doc) => {
