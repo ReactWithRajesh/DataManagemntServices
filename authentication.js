@@ -11,6 +11,7 @@ const verifyToken = (req, res, next) => {
         req.token = token
         next()
     } else {
+        console.log({ msg: 'Unauthorized Request.' })
         res.status(401).send({ msg: 'Unauthorized Request.' })
     }
 
@@ -39,5 +40,3 @@ const verifyUser = (req, res, next) => {
 }
 
 module.exports = { generateToken, verifyToken, verifyUser }
-
-
