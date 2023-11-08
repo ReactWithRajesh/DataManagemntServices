@@ -7,11 +7,13 @@ var studentSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: 'This field is required'
+        required: 'This field is required',
+        unique: true
     },
     mobile: {
         type: Number,
-        required: 'This field is required'
+        required: 'This field is required',
+        unique: true
     },
     city: {
         type: String,

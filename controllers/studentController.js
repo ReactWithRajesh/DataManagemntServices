@@ -10,13 +10,31 @@ const Student = mongoose.model('Student');
 //     })
 // })
 
-router.post('/', verifyToken, verifyUser, (req, res) => {
-    console.log(`Id : ${req.body._id}`)
+// const duplicateCheck = (data) => {
+//     let data
+//     const students = Student.find().select(' fullName email mobile city')
+//         .then((students) => {
+//             res.json({ students })
+//         })
+//     // if(data.email===)
+// }
+
+router.post('/', verifyToken, verifyUser, async (req, res) => {
+    const existingStudent = await Student.findOne({ $or: [{ email: req.body.email }, { mobile: req.body.mobile }] });
+    let email = existingStudent?.email === req.body.email
+    let mobile = existingStudent?.mobile === req.body.mobile
+    console.log(existingStudent)
     if (!req.body._id) {
-        insertRecord(req, res)
+        if (email || mobile) {
+            res.status(400).send({
+                error: `Student with this ${mobile && email ? "mobile and email" : email ? 'email' : 'mobile'} already exists.`
+            });
+        } else {
+            insertRecord(req, res);
+        }
     }
     else {
-        updateRecord(req, res)
+        updateRecord(req, res);
     }
 })
 
@@ -29,7 +47,7 @@ function insertRecord(req, res) {
     student.city = req.body.city;
     student.save()
         .then((docs) => {
-            res.send({ docs, msg: 'Record added Successfully.' })
+            res.send({ docs, msg: 'Student Record added Successfully.' })
             //below for using view hbs
             // res.redirect('student/list')
         })
@@ -50,23 +68,46 @@ function updateRecord(req, res) {
         //below for using view hbs
         // res.redirect('student/list')
     }).catch((err) => {
+        res.status(400).send({ error: err.message })
         console.log("Error during update : " + err)
     })
 }
 
 
-const getlists = (req, res) => {
-    const students = Student.find().select(' fullName email mobile city')
-        .then((students) => {
-            res.json({ students })
-        })
-        .catch(err => {
-            res.status(400).send({ err: err.message })
-            console.error("Error during data retrive: " + err);
-        })
+const getlists = async (req, res) => {
+    try {
+        const students = await Student.find().select('fullName email mobile city');
+        return students;
+    } catch (err) {
+        res.status(400).send({ error: err.message });
+        console.error("Error during data retrieve: " + err);
+    }
+    // return students
+    // .then((students) => {
+    //     // console.log(students)
+    //     // res.json({ students })
+    //     return students
+    // })
+    // .catch(err => {
+    //     res.status(400).send({ error: err.message })
+    //     console.error("Error during data retrive: " + err);
+    // })
 }
 //all list
-router.get('/list', verifyToken, verifyUser, getlists)
+router.get('/list', verifyToken, verifyUser, async (req, res) => {
+
+    const students = await getlists(req, res);
+
+    if (students) res.json({ students });
+    // return res.json()
+    // let responce = res.json()
+    // console.log("data", res.json(list))
+    // console.log("CONSOLELIST", list)
+    //     .then((lis) => {
+    //         console.log("CONSOLE", lis)
+    //         res.json({ lis })
+    //     })
+})
 
 //get by id 
 router.get('/:_id', verifyToken, verifyUser, (req, res) => {
@@ -88,8 +129,8 @@ router.get('/delete/:_id', verifyToken, verifyUser, (req, res) => {
     if (req.params._id) {
         Student.findByIdAndRemove(req.params._id,)
             .then((doc) => {
-
-                res.json({ doc, msg: 'Record deleted successfully.' })
+                if (doc) res.json({ doc, msg: 'Record deleted successfully.' })
+                else res.json({ error: 'Record Not Found' })
                 //using view hbs
                 // res.render('student/list', { list: docs }) 
             })
