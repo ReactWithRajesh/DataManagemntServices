@@ -1,6 +1,7 @@
+const env = require('dotenv')
+env.config()
 const jwt = require('jsonwebtoken');
-const JWT_SECRET =
-    "6nXLg0zUu7gytIcFJFuA3vlKwxPM3b3LAswC_5qOClYn6GslxXDCuT98DCkCx4j2";
+const JWT_SECRET = process.env.JWT_SECRET || "defaultSecretKey";
 
 
 //token validation 
@@ -27,11 +28,12 @@ const login_v2 = (req, res) => {
 
     var request = require("request");
     var body = {
-        "client_id": "NOuAQms0cMPvDcwOrsN4zS9afoeGyfxY",
-        "client_secret": "6nXLg0zUu7gytIcFJFuA3vlKwxPM3b3LAswC_5qOClYn6GslxXDCuT98DCkCx4j2",
-        "audience": "https://react-rajesh.us.auth0.com/api/v2/",
+        "client_id": process.env.clientId,
+        "client_secret": process.env.clientSecret,
+        "audience": process.env.audience,
         "grant_type": "client_credentials"
     }
+    console.log('Body',body)
 
     var options = {
         method: 'POST',
@@ -39,11 +41,14 @@ const login_v2 = (req, res) => {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(body)
     };
+    console.log('Bodyoptions',options)
 
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
         let result = JSON.parse(body)
-        res.json({ 'access_token': result.access_token })
+        const {access_token,err} =result
+        console.log('result',result)
+        res.json({ result })
     });
 }
 
