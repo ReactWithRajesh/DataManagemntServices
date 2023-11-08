@@ -11,3 +11,4 @@ mongoose.connection.on('error', err => {
 })
 
 require('./student.model')
+require('./item.model')

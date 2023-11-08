@@ -12,7 +12,8 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 
 const studentController = require('./controllers/studentController')
-const loginController=require('./controllers/loginController')
+const loginController = require('./controllers/loginController')
+const bookingController = require('./controllers/bookingController')
 
 const app = express()
 
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use('/login', loginController)
 app.use('/student', studentController)
+app.use('/item', bookingController)
 
 app.get('/', (req, res) => {
     res.send(`
