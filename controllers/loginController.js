@@ -31,7 +31,7 @@ router.post('/register/', async (req, res) => {
     if (!req.body._id) {
         if (email || mobile) {
             res.status(400).send({
-                error: `User already registred with this ${mobile && item ? "mobile and email" : item ? 'item' : 'mobile'} .`
+                error: `User already registred with this ${mobile && email ? "mobile and email" : email ? 'email' : 'mobile'} .`
             });
         } else {
             const user = req.body;
