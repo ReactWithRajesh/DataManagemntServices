@@ -26,11 +26,8 @@ app.use('/student', studentController)
 app.use('/item', bookingController)
 
 app.get('/', (req, res) => {
-    res.send(`
-    <h1>Welcome to server</h1>
-    <h3>click here to get access to the <b> <a href="/student/list">Database</a></h3>
-`)
-})
+    res.render('./dashboard.hbs');
+});
 
 app.set("views", path.join(__dirname, "/views/"));
 
