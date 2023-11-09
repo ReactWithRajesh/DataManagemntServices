@@ -1,6 +1,7 @@
 const env = require('dotenv')
 env.config()
 const jwt = require('jsonwebtoken');
+const { encrypt, decrypt, encodePassword } = require('./models/user.model');
 const JWT_SECRET = process.env.JWT_SECRET || "defaultSecretKey";
 
 
@@ -33,7 +34,7 @@ const login_v2 = (req, res) => {
         "audience": process.env.audience,
         "grant_type": "client_credentials"
     }
-    console.log('Body',body)
+    console.log('Body', body)
 
     var options = {
         method: 'POST',
@@ -41,24 +42,24 @@ const login_v2 = (req, res) => {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(body)
     };
-    console.log('Bodyoptions',options)
+    console.log('Bodyoptions', options)
 
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
         let result = JSON.parse(body)
-        const {access_token,err} =result
-        console.log('result',result)
+        const { access_token, err } = result
+        console.log('result', result)
         res.json({ result })
     });
 }
 
 const generateToken = (req, res) => {
     const user = req.body;
-    console.log(user);
+    const encryptedUser = encrypt(JSON.stringify(user));
     // Set the expiration time for the token (e.g., 1 hour)
-    const expiresIn = 3600; // 1 hour in seconds
+    const expiresIn = 7200; // 1 hour in seconds
 
-    jwt.sign({ ...user }, JWT_SECRET, { expiresIn }, (err, token) => {
+    jwt.sign({ encryptedUser }, JWT_SECRET, { expiresIn }, (err, token) => {
         if (err) return res.send({ err: err.message });
         res.json({ token });
     });

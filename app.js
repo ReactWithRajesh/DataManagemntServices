@@ -21,7 +21,7 @@ const app = express()
 app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use('/login', loginController)
+app.use('/user', loginController)
 app.use('/student', studentController)
 app.use('/item', bookingController)
 
