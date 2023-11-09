@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const CryptoJS = require('crypto-js');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const env = require('dotenv')
 env.config()
 
