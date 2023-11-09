@@ -25,8 +25,11 @@ app.use('/login', loginController)
 app.use('/student', studentController)
 app.use('/item', bookingController)
 
+// app.get('/', (req, res) => {
+//     res.render('./dashboard.hbs');
+// });
 app.get('/', (req, res) => {
-    res.render('./dashboard.hbs');
+    res.sendFile(path.join(__dirname, './dashboard.html'));
 });
 
 app.set("views", path.join(__dirname, "/views/"));
