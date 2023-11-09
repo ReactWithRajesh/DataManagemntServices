@@ -36,7 +36,7 @@ app.engine("hbs",
         handlebars: allowInsecurePrototypeAccess(handlebars),
         extname: 'hbs',
         defaultLayout: 'MainLayout',
-        layoutsDir: __dirname + '/views/layouts/'
+        layoutsDir: path.join(__dirname,'/views/layouts/') 
     })
 );
 
