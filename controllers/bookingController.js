@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const { verifyUser, verifyToken } = require('../authentication');
 const BookingItem = mongoose.model('BookingItem');
 
-//insert record function 
+//insert record function
 function insertRecord(req, res) {
     var Item = new BookingItem()
     Item.itemName = req.body.itemName;
@@ -52,7 +52,6 @@ const getlists = async (req, res) => {
         console.error("Error during data retrieve: " + err);
     }
 }
-
 
 //list route 
 router.get('/list', verifyToken, verifyUser, async (req, res) => {
