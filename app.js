@@ -19,6 +19,7 @@ const app = express()
 
 //midlewares 
 app.use(morgan('dev'))
+app.options('*', cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use('/user', loginController)
