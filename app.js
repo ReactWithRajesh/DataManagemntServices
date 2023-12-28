@@ -1,6 +1,7 @@
 require('./models/db')
 const jwt = require('jsonwebtoken')
 const env = require('dotenv')
+const cors = require('cors');
 env.config()
 const port = process.env.PORT || 4041
 const express = require('express');
