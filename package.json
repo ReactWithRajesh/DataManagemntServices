@@ -27,12 +27,14 @@
     "express": "^4.18.2",
     "express-handlebars": "^5.3.1",
     "handlebars": "^4.7.8",
+    "har-validator": "^5.1.5",
     "html": "^1.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.1",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
     "path": "^0.12.7",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "uuid": "^9.0.1"
   }
 }
