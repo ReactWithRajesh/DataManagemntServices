@@ -31,7 +31,7 @@ npm start
 The server will start on http://localhost:4041/3033
 
 # API Endpoints:
-# 1.
+
 1. **Generate JWT Token**:
 Endpoint: POST /api/auth/generate-token
 Description: Generates a JWT token for the user.
@@ -50,9 +50,18 @@ Description: Registers a new user.
 2. **Update Password**
 Endpoint: POST /api/user/updatepassword
 Description: Updates the user's password.
-   <img width="361" alt="image" src="https://github.com/user-attachments/assets/dcf39696-3a25-42fb-b0cb-05d786085aa7">
+  <img width="361" alt="image" src="https://github.com/user-attachments/assets/dcf39696-3a25-42fb-b0cb-05d786085aa7">
 
 3. **Login**
 Endpoint: POST /api/user/login
 Description: Authenticates the user and generates a JWT token.
   <img width="361" alt="image" src="https://github.com/user-attachments/assets/7f63d6a9-f4e0-4861-8cbc-0e95b6e15a9c">
+
+## Booking Item Management Endpoints
+
+1. **Add or Update Booking Item**
+Endpoint: POST /api/booking/
+Description: Adds a new booking item or updates an existing one.
+  <img width="374" alt="image" src="https://github.com/user-attachments/assets/bb06d31a-fa24-47a3-9ebe-80fd5b959251">
+
+
