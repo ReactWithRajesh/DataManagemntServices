@@ -2,6 +2,10 @@
 
 This project provides a Node.js API that includes JWT authentication, user management, booking item management, and student management. It offers endpoints for creating, updating, and retrieving records, along with secure routes that require JWT authentication.
 
+**Public Deployment**
+The API is publicly deployed and can be accessed at:
+_**** https://data-service-7pt4.onrender.com
+
 ## Features
 
 - **JWT Token Generation**: Securely create JWT tokens with user data.
