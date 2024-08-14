@@ -42,6 +42,7 @@ Endpoint: POST /api/auth/login-v2
 Description: Handles login via Auth0 and retrieves an access token.
 
 ## User Management Endpoints
+
  1. **User Registration**
 Endpoint: POST /api/user/register
 Description: Registers a new user.
@@ -63,5 +64,87 @@ Description: Authenticates the user and generates a JWT token.
 Endpoint: POST /api/booking/
 Description: Adds a new booking item or updates an existing one.
   <img width="374" alt="image" src="https://github.com/user-attachments/assets/bb06d31a-fa24-47a3-9ebe-80fd5b959251">
+  
+2. **Get Booking Items List**
+Endpoint: GET /api/booking/list
+Description: Retrieves a list of all booking items.
+  <img width="371" alt="image" src="https://github.com/user-attachments/assets/0abb6ff3-b368-402c-8fe5-d6800e72e1ee">
+  
+3. **Get Booking Item by ID**
+Endpoint: GET /api/booking/:_id
+Description: Retrieves a specific booking item by its ID.
+  <img width="370" alt="image" src="https://github.com/user-attachments/assets/8c43576a-6d12-4445-ba7d-0c6e3f5ffcbd">
+
+4. **Delete Booking Item by ID**
+Endpoint: GET /api/booking/delete/:_id
+Description: Deletes a specific booking item by its ID.
+Response:{
+  "msg": "Record deleted successfully."
+}
+
+## Student Management Endpoints
+
+1. **Add or Update Student**
+Endpoint: POST /api/student/
+Description: Adds a new student or updates an existing one.
+
+  <img width="365" alt="image" src="https://github.com/user-attachments/assets/b986c24a-894a-45c2-8093-fac2d9c74039">
+
+2. **Get Students List**
+Endpoint: GET /api/student/list
+Description: Retrieves a list of all students.
+  <img width="374" alt="image" src="https://github.com/user-attachments/assets/4e9a4ccb-a110-48e0-9efd-7cb3cc9ab040">
+
+3. **Get Student by ID**
+Endpoint: GET /api/student/:_id
+Description: Retrieves a specific student by their ID.
+  <img width="375" alt="image" src="https://github.com/user-attachments/assets/69161c89-ae65-4a58-8ae8-1c92964a31a8">
+
+4. **Delete Student by ID**
+Endpoint: GET /api/student/delete/:_id
+Description: Deletes a specific student by their ID.
+Response:{
+  "msg": "Record deleted successfully."
+}
+
+# Environment Variables
+The following environment variables should be set in your .env file:
+
+- **JWT_SECRET:** Secret key for signing JWT tokens.
+- **clientId:** Your Auth0 client ID.
+- **clientSecret:** Your Auth0 client secret.
+- **audience:** The Auth0 audience for your API.
+- **PORT:** The port number for your server.
+- **MONGODB_URI:** The MongoDB connection URI.
+  
+# Dependencies
+- **dotenv:** Loads environment variables from a .env file.
+- **jsonwebtoken:** Used for creating and verifying JWT tokens.
+- **express:** Web framework for Node.js.
+- **mongoose:** MongoDB object modeling tool.
+- **request:** Simplified HTTP request client.
+
+# Author
+- **Name:** Rajesh Kumar
+- **GitHub:** ReactWithRajesh
+- **Email:** rjsreact@gmail.com
+  
+# License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+# Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+# Acknowledgments
+- **Auth0** for providing a robust authentication solution.
+- **JWT** for the concept of JSON Web Tokens.
+- **MongoDB** for the database solution.
+
+
+### Notes:
+
+- Replace placeholders like `yourusername`, `your-repo-name`, and specific environment variables with actual data.
+- The sections are structured to provide clarity on how each part of your API works, making it easier for others to understand and contribute.
+
 
 
