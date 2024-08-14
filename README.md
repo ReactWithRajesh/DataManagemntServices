@@ -4,7 +4,7 @@ This project provides a Node.js API that includes JWT authentication, user manag
 
 **Public Deployment**
 The API is publicly deployed and can be accessed at:
-_**** https://data-service-7pt4.onrender.com
+https://data-service-7pt4.onrender.com
 
 ## Features
 
