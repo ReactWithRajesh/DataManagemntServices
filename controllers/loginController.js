@@ -35,6 +35,9 @@ router.post('/register/', async (req, res) => {
             });
         } else {
             const user = req.body;
+            if(!user.password)  res.status(400).send({
+                error: `Password is required.`
+            });
             const Password = await encodePassword(user.password);
             user.password = Password;
             req.body = user;
